@@ -1,0 +1,4 @@
+db.createUser({user: "bill",pwd: "bill123",roles: [ { role: "readWrite", db: "rest-api-workshop" } ]})
+db.createUser({user: "bill",pwd: passwordPrompt(),  roles: [ "readWrite", "dbAdmin" ]})
+db.updateUser( "bill",{roles : [{ role : "readWrite", db : "rest-api-workshop"  }]} )
+

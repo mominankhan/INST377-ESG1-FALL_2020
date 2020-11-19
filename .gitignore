@@ -2,3 +2,4 @@
 .vscode
 rest-api-workshop/node_modules/*
 nodeProject/node_modules/*
+rest-api-workshop-sqlite/node_modules/*

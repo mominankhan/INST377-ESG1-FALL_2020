@@ -1,3 +1,4 @@
 .DS_Store
 .vscode
 rest-api-workshop/node_modules/*
+nodeProject/node_modules/*

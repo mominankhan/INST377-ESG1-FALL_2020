@@ -75,43 +75,43 @@ function getTask() {
 }
 
 function updateTask() {
-    console.log("Called updateTask");
-    
-    let taskIdParam = document.getElementById("updateTaskId").value;
-    let taskNameParam = document.getElementById("updateTaskName").value;
-    console.log("TaskId:" + taskIdParam);
-    console.log("TaskName:" + taskNameParam);
-    data = {'taskId':taskIdParam, 'taskName':taskNameParam};
+  console.log("Called updateTask");
+  
+  let taskIdParam = document.getElementById("updateTaskId").value;
+  let taskNameParam = document.getElementById("updateTaskName").value;
+  console.log("TaskId:" + taskIdParam);
+  console.log("TaskName:" + taskNameParam);
+  data = {'taskName':taskNameParam};
 
-    console.log(JSON.stringify(data))
-    let taskURL = "http://localhost:4000/task";
-    const fetchPromise = fetch(taskURL,{ method:'PUT', headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      }, body: JSON.stringify(data)});
+  console.log(JSON.stringify(data))
+  let taskURL = "http://localhost:4000/task?taskId=" + taskIdParam;
+  const fetchPromise = fetch(taskURL,{ method:'PUT', headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    }, body: JSON.stringify(data)});
 
-    fetchPromise
-      .then((response) => {
-        return response.json();
-      })
-      .then((task) => {
-        console.log("Here Update");
-        console.log(task);
-        let taskId, taskName, taskDate;
-        let message = "ERROR";
-        if (typeof task.data.id !== "undefined") {
-          taskName = task.data.taskName;
-          taskId = task.data.id;
-          
-          message = "ID: " + taskId + "<br>TaskName: " + taskName; 
-        }
-        document.getElementById("updatedTaskContent").innerHTML = message;
+  fetchPromise
+    .then((response) => {
+      return response.json();
     })
-    .catch((err) => {
-        console.log(err);
-        document.getElementById("updatedTaskContent").innerHTML = "Invalid task id: " + taskIdParam;
-    });
-   
+    .then((task) => {
+      console.log("Here Update");
+      console.log(task);
+      let taskId, taskName, taskDate;
+      let message = "ERROR";
+      if (typeof task.data.id !== "undefined") {
+        taskName = task.data.taskName;
+        taskId = task.data.id;
+        
+        message = "ID: " + taskId + "<br>TaskName: " + taskName; 
+      }
+      document.getElementById("updatedTaskContent").innerHTML = message;
+  })
+  .catch((err) => {
+      console.log(err);
+      document.getElementById("updatedTaskContent").innerHTML = "Invalid task id: " + taskIdParam;
+  });
+ 
 }
 
 function deleteTask() {

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type = "text/javascript" >
+window.onload = function () {
+	var dataPoints = [{x:0, y : 10}, {x:1, y : 13}, {x:2 , y : 18}, {x:3, y : 20}, {x:4 , y : 17}];
+	var chart = new CanvasJS.Chart("chartContainer", {
+			title : {
+				text : "Dynamic Data"
+			},
+			data : [{
+					type : "spline",
+					dataPoints : dataPoints
+				}
+			]
+		});
+
+	chart.render();
+	let xVal = 5;
+	let yVal = 15, updateCount = 0;
+	var updateChart = function () {
+
+		yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
+        updateCount++;
+        console.log("yVal updateCount " + yVal + " " + " " + updateCount);
+		
+		dataPoints.push({
+            y : yVal,
+            x : xVal
+		});
+      	
+        chart.options.title.text = "Update " + updateCount;
+        if(updateCount > 20){
+            dataPoints.shift();
+            axisX:{
+                minimum: (updateCount - 20);
+                maximum: updateCount;
+            }
+            
+                
+           
+        }
+        xVal += 1;
+		chart.render();    
+		
+	};
+
+	// update chart every second
+	setInterval(function(){updateChart()}, 1000);
+}	
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
+
+</head>
+<body>
+<div id = "chartContainer" style = "height: 300px; width: 100%;" />
+</body>
+</html>
+
+<!-- Based on https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/updating-chart-options/ -->
